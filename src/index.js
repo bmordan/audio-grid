@@ -1,12 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import { render } from 'react-dom'
+import Grid from './Grid'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const init = {
+    grid: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null]
+    ],
+    bar: 4,
+    play: false
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const reducer = (state = init, action) => {
+    switch(action.type) {
+        case 'START':
+            return Object.assign({}, state, {play: true})
+        case 'BAR':
+            const bar = state.bar === 4 ? 1 : state.bar + 1
+            return Object.assign({}, state, {bar})
+        case 'TOGGLE':
+            const grid = state.grid.slice()
+            const [row, period] = action.id.split("|")
+            const update = grid[row][period] ? null : action.id
+            grid[row][period] = update
+            return Object.assign({}, state, { grid })
+        default:
+            return state
+    }
+}
+
+const store = createStore(reducer)
+
+render(<Provider store={store}>
+    <Grid />
+</Provider>, document.getElementById('root'))
