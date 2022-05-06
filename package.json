@@ -1,15 +1,14 @@
 {
   "name": "audio-grid",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "express": "^4.18.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-scripts": "3.0.1",
-    "redux": "^4.0.1",
-    "webpack-cli": "^4.9.2"
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "node index.js",
@@ -22,8 +21,8 @@
     "extends": "react-app"
   },
   "engines": {
-    "node": "16",
-    "npm": "8"
+    "node": "14",
+    "npm": "6"
   },
   "browserslist": {
     "production": [
